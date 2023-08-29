@@ -43,7 +43,10 @@ export async function POST(req: NextRequest) {
     await prisma.$disconnect();
 
     if (_.isEmpty(notesData)) {
-      return NextResponse.json({ message: "Couldn't create note" }, {status: 401});
+      return NextResponse.json(
+        { message: "Couldn't create note" },
+        { status: 401 }
+      );
     }
 
     return NextResponse.json(
@@ -90,19 +93,39 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET() {
-  return NextResponse.json({ message: "Get Notes" });
+  try {
+    const notes = await prisma.notes.findMany();
+    return NextResponse.json({ data: notes }, { status: 200 });
+  } catch (error) {
+    console.log("Error : ", error);
+    return NextResponse.json(
+      { message: "Something went wrong" },
+      { status: 500 }
+    );
+  }
 }
 
-export async function PUT(req: NextApiRequest, res: NextApiResponse) {
-  return NextResponse.json({ message: "Put Notes" });
-}
+export async function DELETE(request: NextRequest) {
+  try {
+    const deleted = await prisma.notes.deleteMany({});
 
-export async function PATCH(req: NextApiRequest, res: NextApiResponse) {
-  return NextResponse.json({ message: "Patch Notes" });
-}
+    if (deleted.count === 0) {
+      return NextResponse.json(
+        { message: "No notes deleted :(" },
+        { status: 401 }
+      );
+    }
 
-export async function DELETE(req: NextApiRequest, res: NextApiResponse) {
-  return NextResponse.json({ message: "Delete Notes" });
+    return NextResponse.json(
+      { message: `${deleted.count} Notes Deleted Successfully` },
+      { status: 200 }
+    );
+  } catch (error) {
+    return NextResponse.json(
+      { message: "Something went wrong" },
+      { status: 500 }
+    );
+  }
 }
 
 // const normalizeFormData = async (req: NextApiRequest) => {
