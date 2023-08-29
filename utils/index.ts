@@ -1,7 +1,7 @@
 import Constants from "./constants";
-import normalizeFormData from "./common";
+import {_isJSON} from "./common";
 
 export {
     Constants,
-    normalizeFormData
+    _isJSON
 }

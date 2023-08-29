@@ -1,12 +1,10 @@
-import { NextApiRequest, NextApiResponse } from "next";
-// import { Fields, Files, IncomingForm } from "formidable";
-// import formidable from 'formidable';
 import _ from "lodash";
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { serialize } from "object-to-formdata";
-
-const prisma = new PrismaClient();
+import { TisJSON } from "@/interfaces";
+import { _isJSON } from "@/utils";
+import prisma from "../_base";
 
 export const config = {
   api: {
@@ -18,13 +16,21 @@ export async function POST(req: NextRequest) {
   try {
     let data = null;
     const errors: string[] = [];
-    if (_isJSON(req)) {
-      data = serialize(await req.json());
-    } else {
-      data = await req.formData();
+
+    const contentType:TisJSON = _isJSON(req);
+    if(!contentType)
+    {
+      return NextResponse.json({ message: "Data in a body is not known" }, { status: 401 });
     }
-    const title: string = data.get("title")?.toString() || "";
-    const details: string = data.get("details")?.toString() || "";
+
+    if(contentType === "JSON")  data = serialize(await req.json())
+    if(contentType === "Form" ) data = await req.formData()
+    if(contentType === "WRONG") {
+      return NextResponse.json({ message: "Only JSON or Form data is valid" }, { status: 402 });
+    }
+
+    const title: string = data?.get("title")?.toString() || "";
+    const details: string = data?.get("details")?.toString() || "";
 
     if (_.isEmpty(title)) errors.push("Title field is required");
     if (_.isEmpty(details)) errors.push("Details field is required");
@@ -92,10 +98,38 @@ export async function POST(req: NextRequest) {
   // NextResponse.json({ message: "Created Successfully", data: notesData });
 }
 
-export async function GET() {
+export async function GET(req:NextRequest) {
   try {
-    const notes = await prisma.notes.findMany();
-    return NextResponse.json({ data: notes }, { status: 200 });
+    const params = req.nextUrl.searchParams
+    let pageNumber = params.get('page');
+    let pageSize = params.get('limit');
+    
+    if(!(pageNumber && pageSize))
+    {
+      const notes = await prisma.notes.findMany({
+        orderBy: {
+          createdAt : 'asc'
+        }
+      });
+      return NextResponse.json({ data: notes, pagination: {
+        page: 0,
+        limit: 0
+      } }, { status: 200 });
+    }
+
+    
+
+    const notes = await prisma.notes.findMany({
+      skip: (Number(pageNumber) - 1) *  Number(pageSize),
+      take: Number(pageSize),
+      orderBy: {
+        createdAt: 'asc'
+      }
+    });
+    return NextResponse.json({ data: notes, pagination: {
+      page: pageNumber,
+      limit: pageSize
+    } }, { status: 200 });
   } catch (error) {
     console.log("Error : ", error);
     return NextResponse.json(
@@ -105,7 +139,7 @@ export async function GET() {
   }
 }
 
-export async function DELETE(request: NextRequest) {
+export async function DELETE() {
   try {
     const deleted = await prisma.notes.deleteMany({});
 
@@ -127,27 +161,3 @@ export async function DELETE(request: NextRequest) {
     );
   }
 }
-
-// const normalizeFormData = async (req: NextApiRequest) => {
-//   const data: { err: string; fields: formidable.Fields; files: formidable.Files } = await new Promise(
-//     (resolve, reject) => {
-//       const form = new formidable.IncomingForm();
-//      form.parse(req, (err, fields, files) => {
-//         if (err) reject({ err });
-//         resolve({ err, fields, files });
-//       });
-//     }
-//   );
-
-//   return data;
-// };
-
-const _isJSON = (req: NextRequest) => {
-  const contentType = req.headers.get("content-type");
-  let isJson = false;
-  if (contentType === "application/json") {
-    isJson = true;
-  }
-
-  return isJson;
-};

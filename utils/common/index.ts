@@ -1,15 +1,16 @@
-import formidable from 'formidable';
+import { TisJSON } from '@/interfaces';
+import { NextRequest } from 'next/server';
 
-const normalizeFormData = async (req:any) => {
-    // const data:{ err: string, fields:formidable.Fields, files: formidable.Files } = await new Promise((resolve, reject) => {
-    //     const form = new formidable.IncomingForm()
-    //     form.parse(req, (err, fields, files) => {
-    //       if (err) reject({ err })
-    //       resolve({ err, fields, files })
-    //     }) 
-    //   })
 
-      return "data";
-}
 
-export default normalizeFormData
+export const _isJSON = (req: NextRequest) => {
+  const contentType = req.headers.get("content-type");
+  let isJson:TisJSON = null;
+
+  if(!contentType) isJson = null
+  else if (contentType === "application/json") isJson = "JSON"
+  else if (contentType.includes("multipart/form-data")) isJson = "Form"
+  else isJson = "WRONG"
+
+  return isJson;
+};

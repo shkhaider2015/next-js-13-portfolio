@@ -1,0 +1,1 @@
+export type TisJSON = "JSON" | "Form" | "WRONG" | null
