@@ -1,5 +1,5 @@
-import { TisJSON } from "@/interfaces";
-import { _isJSON } from "@/utils";
+import { TisJSON } from "@/app/_interfaces";
+import { _isJSON } from "@/app/_utils";
 import { Prisma, PrismaClient } from "@prisma/client";
 import _ from "lodash";
 import { NextRequest, NextResponse } from "next/server";

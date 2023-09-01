@@ -1,4 +1,4 @@
-import { TisJSON } from '@/interfaces';
+import { TisJSON } from '@/app/_interfaces';
 import { NextRequest } from 'next/server';
 
 

@@ -1,5 +1,5 @@
-import { INotes } from "@/interfaces";
-import { Constants } from "@/utils"
+import { INotes } from "@/app/_interfaces";
+import { Constants } from "@/app/_utils"
 import axios from "axios"
 
 async function getNotes() {

@@ -2,8 +2,8 @@ import _ from "lodash";
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { serialize } from "object-to-formdata";
-import { TisJSON } from "@/interfaces";
-import { _isJSON } from "@/utils";
+import { TisJSON } from "@/app/_interfaces";
+import { _isJSON } from "@/app/_utils";
 import prisma from "../_base";
 
 export const config = {
