@@ -6,16 +6,39 @@
 }
 
 .noteItem {
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 400px;
     background-color: rgb(183, 162, 0);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     border-radius: 10px;
     margin: 20px 20px 0px 0px;
-    padding: 10px;
+    padding: 10px 15px 10px 10px;
     transition: .4s background-color;
+    position: relative;
+}
+
+.menuIcon {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 5px;
+    right: 0px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: none;
+    transition: .4s background-color;
+}
+.menuIcon:hover{
+    background-color: rgba(168, 168, 168, 0.522);
+}
+.menuIcon span {
+    font-size: 25px;
+    color: #000;
+    font-weight: bolder;
 }
 
 .title {
@@ -25,6 +48,11 @@
     color: #000;
 }
 
+.hrLine {
+    border: 1px solid rgba(0, 0, 0, 0.138);
+    margin-top: 10px;
+}
+
 .details {
     font-size: 12px;
     margin-top: 10px;
@@ -32,6 +60,6 @@
 }
 
 .noteItem:hover {
-    background-color: rgba(183, 162, 0, 0.567);
+    background-color: rgba(183, 162, 0, 0.816);
     cursor: pointer;
 }

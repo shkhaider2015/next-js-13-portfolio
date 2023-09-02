@@ -7,7 +7,6 @@ import { CreateNote } from "../_components";
 async function getNotes() {
   let base_url: string = Constants.getAPIUrl();
   const { data } = await axios.get(base_url + "notes");
-  console.log("Data : ", data);
   return {
     data: data.data || [],
     message: data.message || "",
@@ -35,7 +34,11 @@ const Note = (props: INote) => {
 
   return (
     <div className={styles.noteItem}>
+      <div className={styles.menuIcon} >
+        <span> &#x22EE;</span>
+        </div>
       <legend className={styles.title}>{title}</legend>
+      <hr className={styles.hrLine} />
       <span className={styles.details}>{details}</span>
     </div>
   );

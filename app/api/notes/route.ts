@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json(
-      { message: "Note created successfully", data: notesData },
+      { message: "Notes created successfully", data: notesData },
       { status: 200 }
     );
   } catch (error) {
@@ -108,7 +108,7 @@ export async function GET(req:NextRequest) {
     {
       const notes = await prisma.notes.findMany({
         orderBy: {
-          createdAt : 'asc'
+          createdAt : 'desc'
         }
       });
       return NextResponse.json({ data: notes, pagination: {
@@ -123,7 +123,7 @@ export async function GET(req:NextRequest) {
       skip: (Number(pageNumber) - 1) *  Number(pageSize),
       take: Number(pageSize),
       orderBy: {
-        createdAt: 'asc'
+        createdAt: 'desc'
       }
     });
     return NextResponse.json({ data: notes, pagination: {
