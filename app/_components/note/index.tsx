@@ -10,14 +10,11 @@ const Note: React.FC<INote> = (props) => {
   const [isEdit, setIsEdit] = React.useState<boolean>(false);
   const router = useRouter();
 
-
   const _deleteNotes = async () => {
     try {
-      await axios.delete(
-        clientConstants.getAPIUrl() + `notes/${id}`
-      );
+      await axios.delete(clientConstants.getAPIUrl() + `notes/${id}`);
 
-      router.refresh()
+      router.refresh();
     } catch (error) {
       console.error("Error : ", error);
     }
@@ -26,12 +23,17 @@ const Note: React.FC<INote> = (props) => {
   return (
     <div className={isEdit ? styles.createNoteContainer : styles.noteItem}>
       {isEdit ? (
-        <CreateNoteForm
-          initialValues={{ title, details }}
-          id={id}
-          isEdit={true}
-          onCompleteRequest={() => setIsEdit(false)}
-        />
+        <>
+          <span className={styles.closeIcon} onClick={() => setIsEdit(false)}>
+            &#10006;
+          </span>
+          <CreateNoteForm
+            initialValues={{ title, details }}
+            id={id}
+            isEdit={true}
+            onCompleteRequest={() => setIsEdit(false)}
+          />
+        </>
       ) : (
         <>
           <div className={styles.menuIcon}>
@@ -39,7 +41,7 @@ const Note: React.FC<INote> = (props) => {
           </div>
           <ul className={styles.dropdown}>
             <li onClick={() => setIsEdit(true)}>Edit</li>
-            <li onClick={_deleteNotes} >Delete</li>
+            <li onClick={_deleteNotes}>Delete</li>
           </ul>
           <legend className={styles.title}>{title}</legend>
           <hr className={styles.hrLine} />

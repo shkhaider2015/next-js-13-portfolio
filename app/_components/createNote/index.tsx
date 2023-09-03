@@ -9,6 +9,13 @@ const CreateNote: React.FC<IProp> = (props) => {
 
   return (
     <div className={styles.createNoteContainer}>
+      <span
+        style={{ display: state.isCreateUI ? "block" : "none" }}
+        className={styles.closeIcon}
+        onClick={() => setState(pS => ({...pS, isCreateUI: false})) }
+      >
+        &#10006;
+      </span>
       {state.isCreateUI ? (
         <CreateNoteForm
           onCompleteRequest={() =>

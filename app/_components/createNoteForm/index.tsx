@@ -66,7 +66,7 @@ const CreateNoteForm: React.FC<ICreateNote> = (props) => {
       })}
       onSubmit={_submitData}
     >
-      <Form className={styles.form} onMouseLeave={() => onCompleteRequest()}>
+      <Form className={styles.form}>
         <legend>{isEdit ? "Update" : "Add"} Note</legend>
 
         <Field id="title" name="title">
