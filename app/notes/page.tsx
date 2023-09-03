@@ -2,7 +2,7 @@ import { INotes } from "@/app/_interfaces";
 import { Constants } from "@/app/_utils";
 import axios from "axios";
 import styles from "./notes.module.css";
-import { CreateNote } from "../_components";
+import { CreateNote, Note } from "../_components";
 
 async function getNotes() {
   let base_url: string = Constants.getAPIUrl();
@@ -22,29 +22,9 @@ export default async function NotesPage() {
       <div className={styles.noteContainer}>
         <CreateNote isCreateUI={false} />
         {data.data?.map((item: any) => (
-          <Note title={item?.title} details={item?.details} />
+          <Note title={item?.title} details={item?.details} id={item?.id} />
         ))}
       </div>
     </div>
   );
-}
-
-const Note = (props: INote) => {
-  const { title, details } = props;
-
-  return (
-    <div className={styles.noteItem}>
-      <div className={styles.menuIcon} >
-        <span> &#x22EE;</span>
-        </div>
-      <legend className={styles.title}>{title}</legend>
-      <hr className={styles.hrLine} />
-      <span className={styles.details}>{details}</span>
-    </div>
-  );
-};
-
-interface INote {
-  title: string;
-  details: string;
 }

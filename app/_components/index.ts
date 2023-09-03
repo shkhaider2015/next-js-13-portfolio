@@ -1,6 +1,10 @@
 "use client"
 import CreateNote from "./createNote";
+import Note from "./note";
+import CreateNoteForm from "./createNoteForm";
 
 export {
-    CreateNote
+    CreateNote,
+    CreateNoteForm,
+    Note
 }
