@@ -1,4 +1,4 @@
-import Navbar from "../Nacvbar";
+import Navbar from "../Navbar";
 import styles from "./LandingScreen.module.css";
 import { Screen1, Screen2, Screen3, Screen4, Screen5 } from "./screens";
 
