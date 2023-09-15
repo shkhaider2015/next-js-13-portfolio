@@ -1,0 +1,96 @@
+.navContainer {
+}
+
+/* NAVIGATION */
+.fill {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px 0 20px 0px;
+  height: 80px;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(8px);
+  /* box-shadow: 0px 5px 0px #dedede; */
+}
+.fill ul {
+  list-style: none;
+  text-align: center;
+}
+.fill ul li {
+  display: inline-block;
+}
+.fill ul li a {
+  display: block;
+  padding: 15px;
+  text-decoration: none;
+  color: #aaa;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin: 0 20px;
+}
+.fill ul li a,
+.fill ul li a:after,
+.fill ul li a:before {
+  transition: all 0.5s;
+}
+.fill ul li a:hover {
+  color: #555;
+  cursor: pointer;
+}
+
+.fill ul li a {
+  position: relative;
+}
+
+.fill ul li a:after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 0%;
+  content: ".";
+  color: transparent;
+  background: #aaa;
+  height: 1px;
+}
+
+.fill ul li a {
+  transition: all 2s;
+}
+
+.fill ul li a:after {
+  text-align: left;
+  content: ".";
+  margin: 0;
+  opacity: 0;
+}
+.fill ul li a:hover {
+  color: #fff;
+  z-index: 1;
+}
+.fill ul li a:hover:after {
+  z-index: -10;
+  animation: fill 1s forwards;
+  -webkit-animation: fill 1s forwards;
+  -moz-animation: fill 1s forwards;
+  opacity: 1;
+}
+
+/* Keyframes */
+@keyframes fill {
+  0% {
+    width: 0%;
+    height: 1px;
+  }
+  50% {
+    width: 100%;
+    height: 1px;
+  }
+  100% {
+    width: 100%;
+    height: 100%;
+    background: #333;
+    border-radius: 5px;
+  }
+}
