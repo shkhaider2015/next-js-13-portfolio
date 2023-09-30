@@ -1,16 +1,18 @@
 .navContainer {
+  position: fixed;
+  width: 100%;
+  height: 90px;
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(8px);
 }
 
 /* NAVIGATION */
 .fill {
-  width: 100%;
+  width: 90%;
   margin: 0 auto;
   padding: 20px 0 20px 0px;
-  height: 80px;
-  position: fixed;
-  background-color: rgba(0, 0, 0, 0.16);
-  backdrop-filter: blur(8px);
-  /* box-shadow: 0px 5px 0px #dedede; */
 }
 .fill ul {
   list-style: none;
@@ -77,6 +79,66 @@
   opacity: 1;
 }
 
+.navContainer .hamburger {
+  margin: 20px 0px 0px 20px;
+  display: none;
+}
+
+.navContainer .hamburger .line {
+  width: 50px;
+  height: 5px;
+  background-color: #ecf0f1;
+  display: block;
+  margin: 8px auto;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.navContainer .hamburger:hover {
+  cursor: pointer;
+}
+
+/* Hamburger Animation */
+
+.navContainer .hamburger.isActive {
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  -webkit-transition-delay: 0.6s;
+  -o-transition-delay: 0.6s;
+  transition-delay: 0.6s;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.navContainer .hamburger.isActive .line:nth-child(2) {
+  width: 0px;
+}
+
+.navContainer .hamburger.isActive .line:nth-child(1),
+.navContainer .hamburger.isActive .line:nth-child(3) {
+  -webkit-transition-delay: 0.3s;
+  -o-transition-delay: 0.3s;
+  transition-delay: 0.3s;
+}
+
+.navContainer .hamburger.isActive .line:nth-child(1) {
+  -webkit-transform: translateY(13px);
+  -ms-transform: translateY(13px);
+  -o-transform: translateY(13px);
+  transform: translateY(13px);
+}
+
+.navContainer .hamburger.isActive .line:nth-child(3) {
+  -webkit-transform: translateY(-13px) rotate(90deg);
+  -ms-transform: translateY(-13px) rotate(90deg);
+  -o-transform: translateY(-13px) rotate(90deg);
+  transform: translateY(-13px) rotate(90deg);
+}
+
 /* Keyframes */
 @keyframes fill {
   0% {
@@ -92,5 +154,22 @@
     height: 100%;
     background: #333;
     border-radius: 5px;
+  }
+}
+/* Less Than 800px */
+@media only screen and (max-width: 800px) {
+  .fill ul li a {
+    padding: 10px;
+    margin: 0 10px;
+  }
+}
+/* Less Than 600px */
+@media only screen and (max-width: 600px) {
+  .navContainer .fill {
+    display: none;
+  }
+
+  .navContainer .hamburger {
+    display: block;
   }
 }

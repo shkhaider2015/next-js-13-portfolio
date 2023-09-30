@@ -1,10 +1,24 @@
 // import Link from "next/link";
+import { useState } from "react";
 import styles from "./Navbar.module.css";
 import { Link } from "react-scroll";
 
 const Navbar = () => {
+  const [isHamburger, setIsHamburger] = useState<boolean>(false);
+
   return (
     <section className={styles.navContainer}>
+      <div
+        onClick={() => setIsHamburger((pS) => !pS)}
+        className={`${styles.hamburger} ${
+          isHamburger ? styles?.isActive : ""
+        } `}
+        id="hamburger-6"
+      >
+        <span className={styles.line}></span>
+        <span className={styles.line}></span>
+        <span className={styles.line}></span>
+      </div>
       <nav className={styles.fill}>
         <ul>
           <li>
