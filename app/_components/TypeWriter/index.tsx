@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from "react";
 import Styles from "./TypeWriter.module.css";
 
 const TypeWriter: FC<ITypeWriter> = (props) => {
-    const { texts, delay=100, eraseDelay=100, infinite = false, endDelay = 1000 } = props;
+    const { texts, delay=70, eraseDelay=70, infinite = false, endDelay = 1500 } = props;
   
     const [currentText, setCurrentText] = useState<string>('');
     const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -52,7 +52,10 @@ const TypeWriter: FC<ITypeWriter> = (props) => {
       };
     }, [currentIndex, delay, eraseDelay, erasing, currentText, infinite, texts]);
   
-    return <span>{currentText}</span>;
+    return <div className={Styles.typeCon} >
+      <span className={Styles.text} >{currentText} </span>
+      <span className={Styles.blink_line} ></span>
+    </div>;
   };
 
 
