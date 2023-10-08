@@ -6,6 +6,7 @@
   justify-content: space-between;
   background-color: rgba(0, 0, 0, 0.16);
   backdrop-filter: blur(8px);
+  z-index: 3;
 }
 
 /* NAVIGATION */
